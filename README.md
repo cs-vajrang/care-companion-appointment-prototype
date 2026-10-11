@@ -58,6 +58,15 @@ a secure server-side booking restriction.
 - Integrate verified hospital information
 - Add booking confirmation and notifications
 
+
+## Website Preview
+
+![Care Companion appointment booking demo](care-companion-preview.png)
+
+## Live Demo
+
+[Open the Care Companion Prototype](https://cs-vajrang.github.io/care-companion-appointment-prototype/)
+
 ## Author
 
 Vajrang Chidipothu
