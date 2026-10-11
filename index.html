@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Care Companion hospital visit booking prototype.">
+  <title>Care Companion | Visit Request</title>
+
+  <style>
+    :root {
+      --green: #234b3a;
+      --green-light: #eaf2ec;
+      --gold: #c6a45b;
+      --ink: #26352c;
+      --muted: #647168;
+      --line: #dce4dd;
+      --paper: #ffffff;
+      --background: #f5f7f3;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--background);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--green);
+      color: white;
+      padding: 22px 6%;
+    }
+
+    .brand {
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .brand span {
+      color: #e3c77e;
+    }
+
+    header p {
+      margin: 4px 0 0;
+      color: #e5eee7;
+    }
+
+    main {
+      width: min(760px, 92%);
+      margin: 36px auto;
+    }
+
+    .intro {
+      margin-bottom: 22px;
+    }
+
+    .intro h1 {
+      margin-bottom: 8px;
+      font-size: clamp(1.7rem, 4vw, 2.3rem);
+    }
+
+    .intro p,
+    .hint {
+      color: var(--muted);
+    }
+
+    .panel {
+      padding: clamp(18px, 4vw, 32px);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px #1b39220b;
+    }
+
+    .demo-note {
+      background: var(--green-light);
+      border-left: 4px solid var(--green);
+      padding: 12px 14px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .field {
+      margin-top: 18px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    label, legend {
+      font-weight: 700;
+    }
+
+    input, select, textarea {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-top: 7px;
+      font: inherit;
+      border: 1px solid #cbd6cc;
+      border-radius: 8px;
+      background: white;
+      color: var(--ink);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    fieldset {
+      margin-top: 22px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+    }
+
+    .check-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+      font-weight: 400;
+    }
+
+    .check-option input {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px 16px;
+      margin-top: 24px;
+      background: var(--green);
+      color: white;
+      border: 0;
+      border-radius: 8px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #315f49;
+    }
+
+    .secondary {
+      background: #edf1ed;
+      color: var(--green);
+    }
+
+    #message {
+      margin-top: 24px;
+    }
+
+    .result {
+      padding: 18px;
+      background: #f8faf7;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow-wrap: anywhere;
+    }
+
+    .result h2 {
+      margin-top: 0;
+    }
+
+    footer {
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 560px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .full {
+        grid-column: auto;
+      }
+
+      main {
+        margin-top: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="brand">Care <span>Companion</span></div>
+    <p>Thoughtful support for your loved ones.</p>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Plan a Hospital Visit</h1>
+      <p>
+        Prepare a visit request and choose the support
+        your loved one may need.
+      </p>
+    </section>
+
+    <section class="panel">
+      <p class="demo-note">
+        <strong>Portfolio demo:</strong> This form does not
+        make a real booking. Use fictional information only.
+      </p>
+
+      <form id="bookingForm">
+        <div class="form-grid">
+          <div class="field full">
+            <label for="patient">Demo patient name</label>
+            <input id="patient" name="patient"
+              type="text" maxlength="70"
+              placeholder="Enter a sample name" required>
+          </div>
+
+          <div class="field full">
+            <label for="hospital">Hospital</label>
+            <select id="hospital" name="hospital" required>
+              <option value="">Select a hospital</option>
+              <option value="NIMS Hyderabad">NIMS Hyderabad</option>
+              <option value="Osmania General Hospital">
+                Osmania General Hospital
+              </option>
+              <option value="Gandhi Hospital">Gandhi Hospital</option>
+              <option value="AIIMS Bibinagar">AIIMS Bibinagar</option>
+              <option value="Other">Other hospital</option>
+            </select>
+            <p class="hint">
+              Demonstration options only. Verify hospital
+              details and appointment availability independently.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="date">Visit date</label>
+            <input id="date" name="date"
+              type="date" required>
+          </div>
+
+          <div class="field">
+            <label for="time">Preferred time</label>
+            <input id="time" name="time"
+              type="time" required>
+          </div>
+        </div>
+
+        <fieldset>
+          <legend>Choose support services</legend>
+
+          <label class="check-option">
+            <input type="checkbox" name="support"
+              value="Hospital companionship">
+            Hospital companionship
+          </label>
+
+          <label class="check-option">
+            <input type="checkbox" name="support"
+              value="Travel assistance">
+            Travel assistance
+          </label>
+
+          <label class="check-option">
+            <input type="checkbox" name="support"
+              value="Appointment coordination">
+            Appointment coordination
+          </label>
+        </fieldset>
+
+        <button type="submit">Preview Visit Request</button>
+      </form>
+
+      <div id="message" role="status" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer>
+    Care Companion · Student portfolio prototype
+  </footer>
+
+  <script>
+    const form = document.getElementById("bookingForm");
+    const dateInput = document.getElementById("date");
+    const timeInput = document.getElementById("time");
+    const message = document.getElementById("message");
+
+    // Format local date and time without UTC conversion.
+    function toLocalInputValue(date) {
+      const pad = value => String(value).padStart(2, "0");
+
+      return date.getFullYear() + "-" +
+        pad(date.getMonth() + 1) + "-" +
+        pad(date.getDate()) + "T" +
+        pad(date.getHours()) + ":" +
+        pad(date.getMinutes());
+    }
+
+    function setMinimumBookingTime() {
+      const minimum = new Date(Date.now() + 12 * 60 * 60 * 1000);
+      const value = toLocalInputValue(minimum);
+
+      dateInput.min = value.slice(0, 10);
+
+      // The time input's min applies only to the selected day.
+      if (dateInput.value === value.slice(0, 10)) {
+        timeInput.min = value.slice(11, 16);
+      } else {
+        timeInput.removeAttribute("min");
+      }
+    }
+
+    dateInput.addEventListener("change", setMinimumBookingTime);
+    setMinimumBookingTime();
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      message.replaceChildren();
+
+      const selected = Array.from(
+        document.querySelectorAll(
+          'input[name="support"]:checked'
+        )
+      ).map(input => input.value);
+
+      if (selected.length === 0) {
+        message.textContent =
+          "Please choose at least one support service.";
+        return;
+      }
+
+      const requestedDate = new Date(
+        dateInput.value + "T" + timeInput.value
+      );
+
+      const earliestAllowed =
+        new Date(Date.now() + 12 * 60 * 60 * 1000);
+
+      if (requestedDate < earliestAllowed) {
+        message.textContent =
+          "Please choose a date and time at least 12 hours ahead.";
+        return;
+      }
+
+      const result = document.createElement("section");
+      result.className = "result";
+
+      const heading = document.createElement("h2");
+      heading.textContent = "Your Demo Request";
+      result.appendChild(heading);
+
+      const details = [
+        ["Patient", document.getElementById("patient").value],
+        ["Hospital", document.getElementById("hospital").value],
+        ["Date", dateInput.value],
+        ["Preferred time", timeInput.value],
+        ["Support", selected.join(", ")]
+      ];
+
+      details.forEach(([label, value]) => {
+        const paragraph = document.createElement("p");
+        const strong = document.createElement("strong");
+        strong.textContent = label + ": ";
+        paragraph.append(strong, document.createTextNode(value));
+        result.appendChild(paragraph);
+      });
+
+      const note = document.createElement("p");
+      note.textContent =
+        "This is a preview only. No booking was sent or saved.";
+      result.appendChild(note);
+
+      message.appendChild(result);
+    });
+  </script>
+</body>
+</html>
